@@ -50,7 +50,7 @@ public class TestClass {
         try {
             service.addStudent(student);
         } catch (ValidationException exception) {
-            System.out.println(exception);
+//            System.out.println(exception);
             assertFalse(true);
         }
 
@@ -70,7 +70,7 @@ public class TestClass {
             service.addStudent(student);
             assert(false);
         } catch (ValidationException exception) {
-            System.out.println(exception);
+//            System.out.println(exception);
             assert(true);
         }
     }
@@ -87,7 +87,7 @@ public class TestClass {
         try {
             service.addStudent(student);
         } catch (ValidationException | NullPointerException exception) {
-            System.out.println(exception);
+//            System.out.println(exception);
             assert(true);
         }
     }
@@ -104,7 +104,7 @@ public class TestClass {
         try {
             service.addStudent(student);
         } catch (ValidationException exception) {
-            System.out.println(exception);
+//            System.out.println(exception);
             assert(true);
         }
     }
@@ -120,7 +120,7 @@ public class TestClass {
             Student student = new Student(idStudent, numeStudent, grupa, email);
             service.addStudent(student);
         } catch (ValidationException | java.lang.NumberFormatException exception) {
-            System.out.println(exception);
+//            System.out.println(exception);
             assert(true);
         }
     }
