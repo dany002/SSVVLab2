@@ -4,6 +4,7 @@ package org.example;
 //import junit.framework.TestSuite;
 
 import org.example.domain.Student;
+import org.example.domain.Tema;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -135,10 +136,10 @@ public class TestClass {
         Tema tema = new Tema(nrTema, descriere, deadline, primire);
         try {
             service.addTema(tema);
-            assert(true);
+            assert(false);
         } catch (ValidationException exception) {
             System.out.println("Validation exception: " + exception.getMessage());
-            assert(false);
+            assert(true);
         }
     }
 
