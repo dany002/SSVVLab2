@@ -149,8 +149,8 @@ public class MokitoTestClass {
             Tema returnedTema = service.addTema(tema);
             Assertions.assertNull(returnedTema);
 
-            Nota returnedNota = service.addNota(nota, "feedback");
-            Assertions.assertNull(returnedNota);
+            double returnedNota = service.addNota(nota, "feedback");
+            Assertions.assertEquals(9.5, returnedNota);
             Assertions.assertEquals(9.5, nota.getNota());
         } catch (ValidationException ve) {
             ve.printStackTrace();
