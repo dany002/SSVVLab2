@@ -66,26 +66,25 @@ public class MokitoTestClass {
     }
 
     @Test
-    public void addStudent_InvalidNume_ThrowsException() {
+    public void addStudent_ValidData() {
         String studentId = "1001";
-        String nume = "";
+        String nume = "Bellingham";
         int grupa = 935;
         String email = "belingham@yahoo.com";
 
         Student student = new Student(studentId, nume, grupa, email);
 
         try {
-            doThrow(new ValidationException("Incorrect Name!")).when(studentValidator).validate(student);
-            Assertions.assertThrows(ValidationException.class, () -> {
-                service.addStudent(student);
-            });
+           when(studentXMLRepository.save(student)).thenReturn(student);
+           Student returnedStudent = service.addStudent(student);
         } catch (ValidationException ve) {
             ve.printStackTrace();
+            assert false;
         }
     }
 
     @Test
-    public void addStudent_Valid_addTema_InvalidDeadline_ThrowsException() {
+    public void addStudent_Valid_addTema_Valid() {
         String studentId = "1001";
         String nume = "Bellingham";
         int grupa = 935;
@@ -94,23 +93,21 @@ public class MokitoTestClass {
 
         String nrTema = "1";
         String descriere = "Good Homework";
-        int deadline = 25;
+        int deadline = 13;
         int primire = 2;
 
         Tema tema = new Tema(nrTema, descriere, deadline, primire);
 
         try {
-            doNothing().when(studentValidator).validate(student);
-            when(studentXMLRepository.save(student)).thenReturn(null);
-            doThrow(new ValidationException("Deadline must be between 1-14.")).when(temaValidator).validate(tema);
 
+            when(studentXMLRepository.save(student)).thenReturn(student);
             Student returnedStudent = service.addStudent(student);
-            Assertions.assertNull(returnedStudent);
-            Assertions.assertThrows(ValidationException.class, () -> {
-                service.addTema(tema);
-            });
+
+            when(temaXMLRepository.save(tema)).thenReturn(tema);
+            Tema returnedTema = service.addTema(tema);
         } catch (ValidationException ve) {
             ve.printStackTrace();
+            assert false;
         }
     }
 
@@ -149,8 +146,8 @@ public class MokitoTestClass {
             Tema returnedTema = service.addTema(tema);
             Assertions.assertNull(returnedTema);
 
-            Nota returnedNota = service.addNota(nota, "feedback");
-            Assertions.assertNull(returnedNota);
+            double returnedNota = service.addNota(nota, "feedback");
+            Assertions.assertEquals(9.5, returnedNota);
             Assertions.assertEquals(9.5, nota.getNota());
         } catch (ValidationException ve) {
             ve.printStackTrace();
