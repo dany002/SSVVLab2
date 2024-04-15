@@ -125,4 +125,84 @@ public class TestClass {
         }
     }
 
+    // White box testing
+    @Test
+    public void addTema_empty_temaId() {
+        String nrTema = "";
+        String descriere = "ceva";
+        int deadline = 12;
+        int primire = 11;
+        Tema tema = new Tema(nrTema, descriere, deadline, primire);
+        try {
+            service.addTema(tema);
+            assert(true);
+        } catch (ValidationException exception) {
+            System.out.println("Validation exception: " + exception.getMessage());
+            assert(false);
+        }
+    }
+
+    @Test
+    public void addTema_emptyDescriere() {
+        String nrTema = "120";
+        String descriere = "";
+        int deadline = 12;
+        int primire = 11;
+        Tema tema = new Tema(nrTema, descriere, deadline, primire);
+        try {
+            Tema response = service.addTema(tema);
+            assert(tema == response);
+        } catch (ValidationException exception) {
+            System.out.println("Validation exception: " + exception.getMessage());
+            assert(true);
+        }
+    }
+
+    @Test
+    public void addTema_wrongDeadline() {
+        String nrTema = "120";
+        String descriere = "ceva";
+        int deadline = -1;
+        int primire = 11;
+        Tema tema = new Tema(nrTema, descriere, deadline, primire);
+        try {
+            Tema response = service.addTema(tema);
+            assert(tema == response);
+        } catch (ValidationException exception) {
+            System.out.println("Validation exception: " + exception.getMessage());
+            assert(true);
+        }
+    }
+
+    @Test
+    public void addTema_wrongPrimire() {
+        String nrTema = "120";
+        String descriere = "ceva";
+        int deadline = 12;
+        int primire = -1;
+        Tema tema = new Tema(nrTema, descriere, deadline, primire);
+        try {
+            Tema response = service.addTema(tema);
+            assert(tema == response);
+        } catch (ValidationException exception) {
+            System.out.println("Validation exception: " + exception.getMessage());
+            assert(true);
+        }
+    }
+
+    @Test
+    public void addTema_ValidData() {
+        String nrTema = "120";
+        String descriere = "ceva";
+        int deadline = 12;
+        int primire = 11;
+        Tema tema = new Tema(nrTema, descriere, deadline, primire);
+        try {
+            Tema response = service.addTema(tema);
+            assert(tema == response);
+        } catch (ValidationException exception) {
+            System.out.println("Validation exception: " + exception.getMessage());
+            assert(true);
+        }
+    }
 }
